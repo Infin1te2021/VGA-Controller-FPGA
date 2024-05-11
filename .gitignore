@@ -1,0 +1,58 @@
+# Quartus specific
+db/
+incremental_db/
+output_files/
+simulation/
+greybox_tmp/
+*.rpt
+*.chg
+*.htm
+*.eqn
+*.pin
+*.sof
+*.pof
+
+# Simulation specific files
+*.smsg
+*.bak
+*.summary
+*.qws
+*.jdi
+*.done
+*.dpf
+*.qdf
+
+# Synthesis files
+*.qpf
+*.qsf
+
+# Project backups
+*.qws
+*.bak
+
+# Temporary files created by Quartus
+*.tmp
+*.qss
+
+# Logs and databases
+*.log
+*.jdi
+*.ddb
+incremental_db/
+
+# Ignore all .qar files
+*.qar
+
+# Ignore modelsim files
+*.wlf
+*.mti
+*.do
+transcript
+vsim.wlf
+
+# Misc
+*.swp
+*.lock
+.directory
+Thumbs.db
+.DS_Store
