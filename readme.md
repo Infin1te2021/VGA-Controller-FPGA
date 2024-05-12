@@ -30,7 +30,7 @@ The VGA_Controller_FPGA project is designed to control a VGA (Video Graphics Arr
 
 ## Usage
 
-Provide instructions on how to use your project after installation.
+![Example](Figure/Screenshot/Example.png)
 
 ## Contributing
 
@@ -38,7 +38,7 @@ Contributions are welcome. Please open an issue or submit a pull request.
 
 ## Contact
 
-Project Link: [https://github.com/Infin1te2021/VGA_Controller_FPGA](https://github.com/Infin1te2021/VGA_Controller_FPGA)
+Project Link: [https://github.com/Infin1te2021/VGA_Controller_FPGA](https://github.com/Infin1te2021/VGA-Controller-FPGA)
 
 ## Acknowledgements
 
