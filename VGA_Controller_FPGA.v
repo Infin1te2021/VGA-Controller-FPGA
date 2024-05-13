@@ -16,16 +16,18 @@ output VGA_CLK, VGA_SYNC_N;
 output reg VGA_VS, VGA_HS, VGA_BLANK_N;
 output [7:0] VGA_R, VGA_G, VGA_B;
 
-parameter HD = 16'd1280; // Horizontal Resolution (1280)
-parameter HFP = 16'd48; // Right border (front porch)
-parameter HSP = 16'd112; // Sync Pulse (Re-trace)
-parameter HBP = 16'd248; // Left border (back porch)
+// If you wanna use 1280 x 1024 resolution you can use such parameter for horizontal (16'd1280, 16'd48, 16'd112, 16'd248)
+parameter HD = 16'd600; // Horizontal Resolution (600) 
+parameter HFP = 16'd16; // Right border (front porch)
+parameter HSP = 16'd96; // Sync Pulse (Re-trace)
+parameter HBP = 16'd48; // Left border (back porch)
 parameter HPOS_MAX = HD + HFP + HSP + HBP - 1;
 
-parameter VD = 16'd1024; // Vertical Display (1024)
-parameter VFP = 16'd1; // Right border (front porch)
-parameter VSP = 16'd3;  // Sync pulse (Retrace)
-parameter VBP = 16'd38; // Left border (back porch)
+// If you wanna use 1280 x 1024 resolution you can use such parameter for vertical (16'd1080, 16'd1, 16'd3, 16'd38)
+parameter VD = 16'd480; // Vertical Display (480)
+parameter VFP = 16'd10; // Right border (front porch)
+parameter VSP = 16'd2;  // Sync pulse (Retrace)
+parameter VBP = 16'd33; // Left border (back porch)
 parameter VPOS_MAX = VD + VFP + VSP + VBP - 1;
 
 reg clk_div2 = 0; // Internal Register for Divide-by-2 Clock
@@ -59,8 +61,8 @@ always @(posedge clk_div2) begin
 end
 
 // Horizontal and vertical sync generation * Changed by GPT
-always @(posedge clk_div2) begin
-  if (RSTN) begin
+always @(posedge clk_div2, negedge RSTN) begin
+  if (!RSTN) begin
     hs <= 1;
     VGA_HS <= 1;
     vs <= 1;
@@ -73,9 +75,9 @@ always @(posedge clk_div2) begin
   end
 end
 
-// Display enable and blanking * Changed by GPT
-always @(posedge clk_div2) begin
-  if (RSTN) begin
+// Display enable and blanking
+always @(posedge clk_div2, negedge RSTN) begin
+  if (!RSTN) begin
     de <= 0;
     VGA_BLANK_N <= 0;
   end else if (clk_div2 == 1) begin
@@ -95,10 +97,10 @@ rom_1_port rom_name (
 
 // Calculate ROM Address for image display
 wire display_area;
-assign display_area = (hPos >= 512 && hPos < 768 && vPos >= 384 && vPos < 640);
+assign display_area = (hPos >= 192 && hPos < 448 && vPos >= 112 && vPos < 368); // (1280x1024) assign display_area = (hPos >= 512 && hPos < 768 && vPos >= 384 && vPos < 640);
 always @(posedge clk_div2) begin
   if (display_area)
-    rom_address <= ((vPos - 384) * 256) + (hPos - 512);
+    rom_address <= ((vPos - 112) * 256) + (hPos - 192); // (1280x1024) rom_address <= ((vPos - 384) * 256) + (hPos - 512);
   else
     rom_address <= 0;
 end
